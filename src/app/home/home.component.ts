@@ -21,7 +21,7 @@ import {XLarge} from './x-large';
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styles: [ require('./home.css') ],
+  styles: [ require('../../assets/css/main.css'),require('./home.css')],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./home.html')
 })
@@ -34,7 +34,7 @@ export class Home {
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
+    console.log('Se a cargado el componente `Home` ^_^');
     // this.title.getData().subscribe(data => this.data = data);
   }
 
