@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 
 /**
  * Returns a random integer between min (included) and max (excluded)
@@ -7,8 +6,9 @@ import 'babel-polyfill';
  * @param  {Number} max: maximum positive value (excluded)
  * @return {Number}
  */
-export const getRandomInt = (min, max) =>
+export const getRandomInt = (min, max) => {
   Math.floor(Math.random() * (max - min)) + min;
+}
 
 /**
  * @private
@@ -45,12 +45,60 @@ export const getRandomNumbers = (count, min, max) => {
 };
 
 /**
- * Checks whether exist repeated values in two arrays
- * @param  {Array} array1 : first array to test against
- * @param  {Array} array2 : second array to test against
- * @return {Boolean}
+ * @private
+ *
+ * Filters an array according to a range
+ * @param  {Number} min   : lowest value in the range
+ * @param  {Number} max   : highest value in the range
+ * @return {Array}
  */
-export const checkMutExArray = (array1, array2) => {
-  let x, y;
-  for (x = )
+const filterCards = funtion (min, max) {
+  // this: the array of cards to filter
+  return this.filter((item) => item.power >= min && item.power <= max);
+};
+
+// @pivate
+const _RANGE_WEAK = [0, 300];
+const _RANGE_MEDIUM = [301, 700];
+const _RANGE_STRONG = [709, 9999];
+
+/**
+ * Generates the ramdom cards for both players
+ * @param  {Array} cards : first array to test against
+ * @return {Object}
+ */
+export const getCardsForPlayers = (cards) => {
+  let pc = [],
+      player = [];
+
+  cards.forEach((item, index) => item.id = index);
+
+  const weak = filterCards.apply(cards, _RANGE_WEAK);
+  const medium = filterCards.apply(cards, _RANGE_MEDIUM);
+  const strong = filterCards.apply(cards, _RANGE_STRONG);
+
+  pc = pc.concat(
+    weak[getRandomNumbers(1, 0, weak.length)],
+    medium[getRandomNumbers(1, 0, medium.length)],
+    strong[getRandomNumbers(1, 0, strong.length)]
+  );
+
+  player = player.concat(
+    weak[getRandomNumbers(1, 0, weak.length)],
+    medium[getRandomNumbers(1, 0, medium.length)],
+    strong[getRandomNumbers(1, 0, strong.length)]
+  );
+/*
+  // ensures mutually exclude values in both arrays
+  player.forEach(item => {
+    let index = pc.indexOf(item);
+    if (index >= 0) {
+      pc[index]
+    }
+  });
+*/
+  return {
+    pc,
+    player
+  };
 };

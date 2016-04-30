@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {DataService} from '../app.dataservice';
+// import * as utils from '../arena/card-picker';
 
 /*
  * We're loading this component asynchronously
@@ -19,8 +20,8 @@ console.log('`Cards` component loaded asynchronously');
   template: `
   <div class="container">
       <div class="row">
-          <div class="col-sm-3" *ngFor="#card of cards">
-              <div class="panel panel-default">
+          <div class="col-sm-3" *ngFor="#cardRow of cards">
+              <div class="panel panel-default" *ngFor="#card of cardRow">
                   <div class="panel-body">
                       <img src="{{card.image}}" class="img-responsive" alt="">
                   </div>
@@ -30,20 +31,32 @@ console.log('`Cards` component loaded asynchronously');
   </div>
   `
 })
+
 export class Cards {
   cards = [];
   dataService;
+
   constructor(data: DataService) {
     this.dataService = data;
   }
+
   ngOnInit() {
     console.log('hello `Cards` component');
     this.dataService.retrieveData()
     .subscribe(data => {
-      // TODO: separate in group of four cards
-      this.cards = data;
+      let i, row = [];
+      data.forEach((item) => {
+        if (row.length < 4) row.push(item);
+        else {
+          this.cards.push(row);
+          row = [];
+        }
+      });
+      //let players = utils.getCardsForPlayers(this.cards);
+      //console.log('players:\n', players);
     });
   }
+
   asyncDataWithWebpack() {
   }
 }
