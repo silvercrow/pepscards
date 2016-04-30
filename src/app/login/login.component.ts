@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {AppState} from '../app.service';
-
+import {Router} from 'angular2/router';
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -21,7 +21,7 @@ console.log('`Login` component loaded asynchronously');
       <div class="row">
           <div class="col-md-8 col-md-offset-2">
               <div class="well">
-                  <form class="form-horizontal" (ngSubmit)="submitState(localState.value)" autocomplete="off">
+                  <form class="form-horizontal" (ngSubmit)="submitUser(localState.userName)" autocomplete="off">
                       <fieldset>
                           <legend>Crea un perfil de jugador</legend>
                           <div class="form-group">
@@ -29,8 +29,8 @@ console.log('`Login` component loaded asynchronously');
                               <div class="col-md-10">
                                   <md-input
                                     placeholder="Ingresa tu usuario"
-                                    [value]="localState.value"
-                                    (input)="localState.value = $event.target.value"
+                                    [value]="localState.userName"
+                                    (input)="localState.userName = $event.target.value"
                                     autofocus>
                                   </md-input>
                               </div>
@@ -47,39 +47,19 @@ console.log('`Login` component loaded asynchronously');
 })
 export class Login {
   // Set our default values
-  localState = { value: '' };
-
-  constructor(public appState: AppState) {
-
+  localState = { userName: '' };
+  router: Router;
+  constructor(public appState: AppState,_router: Router) {
+    this.router = _router;
   }
-
   ngOnInit() {
     console.log('hello `Login` component');
-    // static data that is bundled
-    // var mockData = require('assets/mock-data/mock-data.json');
-    // console.log('mockData', mockData);
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    // this.asyncDataWithWebpack();
   }
   asyncDataWithWebpack() {
-    // you can also async load mock data with 'es6-promise-loader'
-    // you would do this if you don't want the mock-data bundled
-    // remember that 'es6-promise-loader' is a promise
-    // var asyncMockDataPromiseFactory = require('es6-promise!assets/mock-data/mock-data.json');
-    // setTimeout(() => {
-    //
-    //   let asyncDataPromise = asyncMockDataPromiseFactory();
-    //   asyncDataPromise.then(json => {
-    //     console.log('async mockData', json);
-    //   });
-    //
-    // });
   }
-
-  submitState(value) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-
+  submitUser(value) {
+    console.log('submit userName', value);
+    this.appState.set('userName', value);
+    this.router.navigate( ['Arena', { userName: value}] );
   }
-
 }

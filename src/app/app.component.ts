@@ -52,12 +52,12 @@ import {RouterActive} from './router-active';
 						</div>
 						<div class="navbar-collapse collapse navbar-responsive-collapse">
 								<ul class="nav navbar-nav">
-										<li class="active"><a href="javascript:void(0)">Home</a></li>
-										<li><a [routerLink]=" ['Index'] ">Cards</a></li>
+										<li class="active"><a [routerLink]=" ['Home'] ">Inicio</a></li>
+										<li><a [routerLink]=" ['Cards'] ">Ver las PepsCards</a></li>
 								</ul>
 
 								<ul class="nav navbar-nav navbar-right">
-										<li class="loging"><a href="javascript:void(0)">Login</a></li>
+										<li class="loging"><a [routerLink]=" ['Login'] ">Login</a></li>
 										<li class="loggedIn"><a href="#">David</a></li>
 								</ul>
 						</div>

@@ -1,4 +1,6 @@
 import {Component} from 'angular2/core';
+import {AppState} from '../app.service';
+import {Router, RouteParams} from 'angular2/router';
 
 /*
  * We're loading this component asynchronously
@@ -47,31 +49,20 @@ console.log('`Arena` component loaded asynchronously');
   `
 })
 export class Arena {
-  constructor() {
-
+  private _routeUsername: string;
+  private _stateUsername: string;
+  constructor(public appState: AppState, private _router:Router,
+  private _routeParams:RouteParams) {
+    this._routeUsername = _routeParams.get('userName');
+    this._stateUsername = this.appState.get('userName');
   }
 
   ngOnInit() {
     console.log('hello `Arena` component');
-    // static data that is bundled
-    // var mockData = require('assets/mock-data/mock-data.json');
-    // console.log('mockData', mockData);
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    // this.asyncDataWithWebpack();
+    console.log('user arrived from state:', this._stateUsername);
+    console.log('user arrived from route Params:', this._routeUsername);
   }
   asyncDataWithWebpack() {
-    // you can also async load mock data with 'es6-promise-loader'
-    // you would do this if you don't want the mock-data bundled
-    // remember that 'es6-promise-loader' is a promise
-    // var asyncMockDataPromiseFactory = require('es6-promise!assets/mock-data/mock-data.json');
-    // setTimeout(() => {
-    //
-    //   let asyncDataPromise = asyncMockDataPromiseFactory();
-    //   asyncDataPromise.then(json => {
-    //     console.log('async mockData', json);
-    //   });
-    //
-    // });
   }
 
 }
