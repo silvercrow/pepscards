@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {AppState} from '../app.service';
 
 /*
  * We're loading this component asynchronously
@@ -20,19 +21,24 @@ console.log('`Login` component loaded asynchronously');
       <div class="row">
           <div class="col-md-8 col-md-offset-2">
               <div class="well">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" (ngSubmit)="submitState(localState.value)" autocomplete="off">
                       <fieldset>
-                          <legend>Create game profile</legend>
+                          <legend>Crea un perfil de jugador</legend>
                           <div class="form-group">
-                              <label for="userName" class="col-md-2 control-label">User Name</label>
-
+                              <label for="userName" class="col-md-2 control-label">Usuario</label>
                               <div class="col-md-10">
-                                  <input type="text" class="form-control" id="userName" placeholder="Enter user name">
+                                  <md-input
+                                    placeholder="Ingresa tu usuario"
+                                    [value]="localState.value"
+                                    (input)="localState.value = $event.target.value"
+                                    autofocus>
+                                  </md-input>
                               </div>
                           </div>
-                          <button class="btn btn-primary">Save & play</button>
+                          <button class="btn btn-primary">Guarda y Juega</button>
                       </fieldset>
                   </form>
+                  <pre>this.localState = {{ localState | json }}</pre>
               </div>
           </div>
       </div>
@@ -40,7 +46,10 @@ console.log('`Login` component loaded asynchronously');
   `
 })
 export class Login {
-  constructor() {
+  // Set our default values
+  localState = { value: '' };
+
+  constructor(public appState: AppState) {
 
   }
 
@@ -65,6 +74,12 @@ export class Login {
     //   });
     //
     // });
+  }
+
+  submitState(value) {
+    console.log('submitState', value);
+    this.appState.set('value', value);
+
   }
 
 }

@@ -1,5 +1,8 @@
 import {Component} from 'angular2/core';
 import {AppState} from '../app.service';
+import {Router} from 'angular2/router';
+import {RouterLink} from 'angular2/router';
+
 
 import {Title} from './title';
 import {XLarge} from './x-large';
@@ -30,17 +33,11 @@ export class Home {
   localState = { value: '' };
   // TypeScript public modifiers
   constructor(public appState: AppState, public title: Title) {
-
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
     // this.title.getData().subscribe(data => this.data = data);
-  }
-
-  submitState(value) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
   }
 
 }
