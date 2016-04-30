@@ -37,38 +37,37 @@ import {RouterActive} from './router-active';
   `],
   template: `
     <header>
-      <md-toolbar color="primary">
-        <span>{{ name }}</span>
-        <nav>
-          <ul>
-            <li router-active>
-              <a [routerLink]=" ['Index'] ">Index</a>
-            </li>
-            |
-            <li router-active>
-              <a [routerLink]=" ['Home'] ">Home</a>
-            </li>
-            |
-            <li router-active>
-              <a [routerLink]=" ['About'] ">About</a>
-            </li>
-          </ul>
-        </nav>
-      </md-toolbar>
-    </header>
-    <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
+    <div class="navbar navbar-inverse">
+				<div class="container">
 
+						<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="javascript:void(0)">
+										<img src="assets/img/angular.png" class="img-responsive logo" alt="" /> Angular 2
+								</a>
+						</div>
+						<div class="navbar-collapse collapse navbar-responsive-collapse">
+								<ul class="nav navbar-nav">
+										<li class="active"><a href="javascript:void(0)">Home</a></li>
+										<li><a [routerLink]=" ['Index'] ">Cards</a></li>
+								</ul>
+
+								<ul class="nav navbar-nav navbar-right">
+										<li class="loging"><a href="javascript:void(0)">Login</a></li>
+										<li class="loggedIn"><a href="#">David</a></li>
+								</ul>
+						</div>
+				</div>
+		</div>
+    </header>
     <main>
       <router-outlet></router-outlet>
     </main>
-
-    <pre>this.appState.state = {{ appState.state | json }}</pre>
-
     <footer>
-      WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
-      <div>
-        <img [src]="angularclassLogo" width="10%">
-      </div>
     </footer>
   `
 })
@@ -76,18 +75,17 @@ import {RouterActive} from './router-active';
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') }
+  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/login', name: 'Login', loader: () => require('es6-promise!./login')('Login') },
+  { path: '/cards', name: 'Cards', loader: () => require('es6-promise!./cards')('Cards') },
+  { path: '/arena', name: 'Arena', loader: () => require('es6-promise!./arena')('Arena') }
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
-  loading = false;
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
-
-  }
+  constructor(public appState: AppState) {}
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
