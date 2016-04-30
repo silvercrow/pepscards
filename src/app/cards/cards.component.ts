@@ -19,9 +19,9 @@ console.log('`Cards` component loaded asynchronously');
   `],
   template: `
   <div class="container">
-      <div class="row">
-          <div class="col-sm-3" *ngFor="#cardRow of cards">
-              <div class="panel panel-default" *ngFor="#card of cardRow">
+      <div class="row" *ngFor="#cardRow of cards">
+          <div class="col-sm-3" *ngFor="#card of cardRow">
+              <div class="panel panel-default">
                   <div class="panel-body">
                       <img src="{{card.image}}" class="img-responsive" alt="">
                   </div>
