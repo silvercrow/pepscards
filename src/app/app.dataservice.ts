@@ -13,10 +13,7 @@ export class DataService {
     console.log('DataService constructor');
   }
   retrieveData() {
-    this.http.get('http://localhost:3000/cards')
-      .map(res => res.json())
-      .subscribe(data => {
-      this.data = data;
-    });
+    return this.http.get('http://localhost:3000/cards')
+      .map((res) => res.json())
   }
 }

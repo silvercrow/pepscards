@@ -19,8 +19,8 @@ console.log('`Cards` component loaded asynchronously');
   template: `
   <div class="container">
       <div class="row">
-          <div class="col-sm-3"  >
-              <div *ngFor="#card of cards" class="panel panel-default">
+          <div class="col-sm-3" *ngFor="#card of cards">
+              <div class="panel panel-default">
                   <div class="panel-body">
                       <img src="{{card.image}}" class="img-responsive" alt="">
                   </div>
@@ -38,7 +38,11 @@ export class Cards {
   }
   ngOnInit() {
     console.log('hello `Cards` component');
-    this.cards = this.dataService.retrieveData();
+    this.dataService.retrieveData()
+    .subscribe(data => {
+      // TODO: separate in group of four cards
+      this.cards = data;
+    });
   }
   asyncDataWithWebpack() {
   }
