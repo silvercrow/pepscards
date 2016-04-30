@@ -38,7 +38,7 @@ console.log('`Login` component loaded asynchronously');
                           <button class="btn btn-primary">Guarda y Juega</button>
                       </fieldset>
                   </form>
-                  <pre>this.localState = {{ localState | json }}</pre>
+                  <pre>this.localState = {{ localState.userName }}</pre>
               </div>
           </div>
       </div>

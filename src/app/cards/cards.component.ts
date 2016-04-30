@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {DataService} from '../app.dataservice';
 
 /*
  * We're loading this component asynchronously
@@ -18,69 +19,27 @@ console.log('`Cards` component loaded asynchronously');
   template: `
   <div class="container">
       <div class="row">
-          <div class="col-sm-3">
-              <div class="panel panel-default">
+          <div class="col-sm-3"  >
+              <div *ngFor="#card of cards" class="panel panel-default">
                   <div class="panel-body">
-                      <img src="assets/cards/97_Boom_Boom.jpg" class="img-responsive" alt="">
+                      <img src="{{card.image}}" class="img-responsive" alt="">
                   </div>
               </div>
           </div>
-
-          <div class="col-sm-3">
-              <div class="panel panel-default">
-                  <div class="panel-body">
-                      <img src="assets/cards/87_Venom.jpg" class="img-responsive" alt="">
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-sm-3">
-              <div class="panel panel-default">
-                  <div class="panel-body">
-                      <img src="assets/cards/75_Magneto_Regresa.jpg" class="img-responsive" alt="">
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-sm-3">
-              <div class="panel panel-default">
-                  <div class="panel-body">
-                      <img src="assets/cards/42_Jubilo.jpg" class="img-responsive" alt="">
-                  </div>
-              </div>
-          </div>
-
       </div>
-
   </div>
   `
 })
 export class Cards {
-  constructor() {
-
+  cards = [];
+  dataService;
+  constructor(data: DataService) {
+    this.dataService = data;
   }
-
   ngOnInit() {
     console.log('hello `Cards` component');
-    // static data that is bundled
-    // var mockData = require('assets/mock-data/mock-data.json');
-    // console.log('mockData', mockData);
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    // this.asyncDataWithWebpack();
+    this.cards = this.dataService.retrieveData();
   }
   asyncDataWithWebpack() {
-    // you can also async load mock data with 'es6-promise-loader'
-    // you would do this if you don't want the mock-data bundled
-    // remember that 'es6-promise-loader' is a promise
-    // var asyncMockDataPromiseFactory = require('es6-promise!assets/mock-data/mock-data.json');
-    // setTimeout(() => {
-    //
-    //   let asyncDataPromise = asyncMockDataPromiseFactory();
-    //   asyncDataPromise.then(json => {
-    //     console.log('async mockData', json);
-    //   });
-    //
-    // });
   }
-
 }

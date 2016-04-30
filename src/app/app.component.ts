@@ -2,11 +2,11 @@
  * Angular 2 decorators and services
  */
 import {Component, ViewEncapsulation} from 'angular2/core';
-import {RouteConfig, Router} from 'angular2/router';
-
+import {RouteConfig, Router, RouteParams} from 'angular2/router';
 import {Home} from './home';
 import {AppState} from './app.service';
 import {RouterActive} from './router-active';
+
 
 /*
  * App Component
@@ -58,7 +58,7 @@ import {RouterActive} from './router-active';
 
 								<ul class="nav navbar-nav navbar-right">
 										<li class="loging"><a [routerLink]=" ['Login'] ">Login</a></li>
-										<li class="loggedIn"><a href="#">David</a></li>
+										<li class="loggedIn"><a [routerLink]=" ['Login']">{{localState.userName.userName}}</a></li>
 								</ul>
 						</div>
 				</div>
@@ -82,13 +82,15 @@ import {RouterActive} from './router-active';
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
-
-  constructor(public appState: AppState) {}
+  localState = { userName: '' };
+  public username: string;
+  constructor(public appState: AppState) {
+  this.localState.userName = this.appState.get('userName');
+  }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
+    this.localState.userName = this.appState.get('userName');
   }
 
 }

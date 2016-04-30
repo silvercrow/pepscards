@@ -51,8 +51,10 @@ console.log('`Arena` component loaded asynchronously');
 export class Arena {
   private _routeUsername: string;
   private _stateUsername: string;
+  localState = { userName: '' };
   constructor(public appState: AppState, private _router:Router,
   private _routeParams:RouteParams) {
+    this.localState.userName = this.appState.get('userName');
     this._routeUsername = _routeParams.get('userName');
     this._stateUsername = this.appState.get('userName');
   }
