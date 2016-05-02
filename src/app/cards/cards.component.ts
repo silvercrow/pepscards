@@ -19,7 +19,7 @@ console.log('`Cards` component loaded asynchronously');
   `],
   template: `
   <div class="container">
-      <div class="row" *ngFor="#cardRow of cards">
+      <div class="row" *ngFor="#cardRow of cardsByRow">
           <div class="col-sm-3" *ngFor="#card of cardRow">
               <div class="panel panel-default">
                   <div class="panel-body">
@@ -34,6 +34,7 @@ console.log('`Cards` component loaded asynchronously');
 
 export class Cards {
   cards = [];
+  cardsByRow = [];
   dataService;
 
   constructor(data: DataService) {
@@ -45,10 +46,11 @@ export class Cards {
     this.dataService.retrieveData()
     .subscribe(data => {
       let i, row = [];
+      this.cards = data;
       data.forEach((item) => {
         if (row.length < 4) row.push(item);
         else {
-          this.cards.push(row);
+          this.cardsByRow.push(row);
           row = [];
         }
       });
